@@ -1,11 +1,13 @@
 package com.backend.Controller;
 
 import com.backend.Model.TaskModel;
-import com.backend.Repository.TaskRepository;
 import com.backend.Service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.config.Task;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 public class TaskController {
@@ -23,12 +25,19 @@ public class TaskController {
     }
 
     @PostMapping("/task")
-    public TaskModel addTask(@RequestBody TaskModel task) {
-        return taskService.addTask(task);
+    public ResponseEntity<Object> addTask(@RequestBody TaskModel task) {
+        taskService.addTask(task);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(task.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).build();
     }
 
     @PutMapping("/task/{id}")
-    public TaskModel updateTask(@PathVariable("id") Long id, @RequestBody TaskModel task){
-        return taskService.updateTask(task, id);
+    public TaskModel updateTask(@PathVariable("id") final Long id, @RequestBody TaskModel task){
+        return taskService.updateTask(task);
     }
 }

@@ -19,9 +19,12 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import static org.mockito.Mockito.when;
 
@@ -54,7 +57,7 @@ class TaskControllerTest {
         List<TaskModel> taskModels = new ArrayList<>();
         taskModels = Arrays.asList(t1, t2);
 
-        when( taskService.getTasks()).thenReturn(taskModels);
+        when(taskService.getTasks()).thenReturn(taskModels);
         List<TaskModel> res = (List<TaskModel>) taskController.getTasks();
 
         assertNotNull(res, "No data");
@@ -65,5 +68,24 @@ class TaskControllerTest {
         String url = "/task/1";
         ResponseEntity<Void> resp = template.exchange(url, HttpMethod.DELETE, HttpEntity.EMPTY, Void.class);
         assertEquals(HttpStatus.OK, resp.getStatusCode());
+    }
+
+    @Test
+    void addTask(){
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+
+        TaskModel task = new TaskModel(1, "NewTask", "TestAdd");
+
+        when(taskService.addTask(any(TaskModel.class))).thenReturn(task);
+        ResponseEntity<Object> responseEntity = taskController.addTask(task);
+
+        assertEquals(201, responseEntity.getStatusCodeValue());
+        assertEquals("/1", responseEntity.getHeaders().getLocation().getPath());
+    }
+
+    @Test
+    void updateTask(){
+        
     }
 }
