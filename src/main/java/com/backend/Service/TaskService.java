@@ -1,19 +1,15 @@
 package com.backend.Service;
 
-import com.backend.Mapper.TaskMapper;
 import com.backend.Model.TaskModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.backend.Repository.TaskRepository;
-
-import java.util.Optional;
 
 
 @Service
 public class TaskService {
     @Autowired
     private TaskRepository taskRepository;
-    private TaskMapper taskMapper;
 
     public Iterable<TaskModel> getTasks()
     {
@@ -28,9 +24,10 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
-    public TaskModel updateTask(TaskModel t){
-        TaskModel task = taskRepository.findById(t.getId()).orElse(null);
-        taskMapper.updateTaskFromDto(task, t);
+    public TaskModel updateTask(long id, TaskModel t){
+        TaskModel task = taskRepository.findById(id).orElse(null);
+        task.setTitleTask(t.getTitleTask());
+        task.setDescription(t.getDescription());
         return taskRepository.save(task);
     }
 }

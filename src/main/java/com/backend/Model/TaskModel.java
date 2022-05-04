@@ -33,6 +33,8 @@ public class TaskModel {
         this.description = description;
     }
 
+    protected TaskModel() {}
+
     public String getTitleTask() {
         return titleTask;
     }
