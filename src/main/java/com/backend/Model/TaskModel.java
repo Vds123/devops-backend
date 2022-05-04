@@ -24,4 +24,10 @@ public class TaskModel {
         this.titleTask = titleTask;
         this.description = description;
     }
+
+    public TaskModel(long id, String titleTask, String description) {
+        this.id = id;
+        this.titleTask = titleTask;
+        this.description = description;
+    }
 }
