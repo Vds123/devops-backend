@@ -1,5 +1,6 @@
 package com.backend.Model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +9,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 public class TaskModel {
 
     @Id
@@ -19,7 +21,7 @@ public class TaskModel {
 
     @Column(name="description")
     private String description;
-
+    
     public TaskModel(String titleTask, String description) {
         this.titleTask = titleTask;
         this.description = description;

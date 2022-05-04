@@ -15,8 +15,8 @@ public class RestConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.setAllowCredentials(true);
-        configuration.addAllowedOrigin("");
-        configuration.addAllowedHeader("");
+        configuration.addAllowedOriginPattern("*");
+        configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("OPTIONS");
         configuration.addAllowedMethod("GET");
         configuration.addAllowedMethod("POST");
