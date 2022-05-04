@@ -32,7 +32,7 @@ public class TaskModel {
         this.titleTask = titleTask;
         this.description = description;
     }
-
+    
     protected TaskModel() {}
 
     public String getTitleTask() {
