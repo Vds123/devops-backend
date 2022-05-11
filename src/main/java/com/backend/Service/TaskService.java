@@ -16,7 +16,7 @@ public class TaskService {
         return taskRepository.findAll();
     }
 
-    public void deleteTask(Long id) {
+    public void deleteTask(String id) {
          taskRepository.deleteById(id);
     }
 
@@ -24,7 +24,7 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
-    public TaskModel updateTask(long id, TaskModel t){
+    public TaskModel updateTask(String id, TaskModel t){
         TaskModel task = taskRepository.findById(id).orElse(null);
         task.setTitleTask(t.getTitleTask());
         task.setDescription(t.getDescription());

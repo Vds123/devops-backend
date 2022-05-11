@@ -20,7 +20,7 @@ public class TaskController {
     }
 
     @DeleteMapping("/task/{id}")
-    public void deleteTask(@PathVariable("id") final Long id) {
+    public void deleteTask(@PathVariable("id") final String id) {
         taskService.deleteTask(id);
     }
 
@@ -37,8 +37,7 @@ public class TaskController {
     }
 
     @PutMapping("/task/{id}")
-    public TaskModel updateTask(@PathVariable("id") final Long id, @RequestBody TaskModel updatedTask){
-        //TaskModel updated = new TaskModel(id, titleTask, description);
+    public TaskModel updateTask(@PathVariable("id") final String id, @RequestBody TaskModel updatedTask){
         return taskService.updateTask(id, updatedTask);
     }
 }
